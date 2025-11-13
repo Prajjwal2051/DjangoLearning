@@ -1,0 +1,99 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║   MySQL Migration - Quick Start Guide                                   ║
+║   NIE College Trainer Management System                                 ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+🚀 FASTEST WAY - Run the automated script:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  bash migrate_to_mysql.sh
+
+  (You'll be asked for MySQL root password)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📋 MANUAL STEPS (if script doesn't work):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Create Database & User:
+   
+   sudo mysql
+   
+   Then paste:
+   
+   CREATE DATABASE nie_college_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   CREATE USER 'nie_user'@'localhost' IDENTIFIED BY 'nie_password_123';
+   ALTER USER 'nie_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'nie_password_123';
+   GRANT ALL PRIVILEGES ON nie_college_db.* TO 'nie_user'@'localhost';
+   FLUSH PRIVILEGES;
+   EXIT;
+
+2. Switch Django to MySQL:
+   
+   Edit nie_college/settings.py:
+   - Comment the SQLite DATABASES section
+   - Uncomment the MySQL DATABASES section
+
+3. Run Migrations:
+   
+   /home/prajjwal25/Desktop/Coding/DjangoPython/.venv/bin/python manage.py migrate
+
+4. Load Data:
+   
+   /home/prajjwal25/Desktop/Coding/DjangoPython/.venv/bin/python manage.py loaddata data_backup.json
+
+5. Start Server:
+   
+   /home/prajjwal25/Desktop/Coding/DjangoPython/.venv/bin/python manage.py runserver
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📊 DATABASE INFO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Database: nie_college_db
+  User:     nie_user
+  Password: nie_password_123
+  Host:     localhost
+  Port:     3306
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+✅ VERIFY IT WORKS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  mysql -u nie_user -p'nie_password_123' nie_college_db -e "SELECT COUNT(*) FROM trainers_trainer;"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📚 HELPFUL FILES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  MYSQL_SETUP.md          - Detailed setup guide with troubleshooting
+  migrate_to_mysql.sh     - Automated migration script
+  setup_mysql.sql         - SQL script for database setup
+  data_backup.json        - Your SQLite data backup
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+🔧 TROUBLESHOOTING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Error: "Access denied"
+  → Run: sudo mysql (instead of mysql -u root -p)
+  
+  Error: "Plugin 'mysql_native_password' is not loaded"
+  → Run the ALTER USER command from step 1 above
+  
+  Error: "Can't connect to MySQL server"
+  → Start MySQL: sudo systemctl start mysqld
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+✨ COMPLETE! Your Django app is now using MySQL! ✨

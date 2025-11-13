@@ -1,0 +1,170 @@
+{% extends 'trainers/base.html' %}
+
+{% block title %}{{ trainer.get_full_name }} - NIE College{% endblock %}
+
+{% block extra_css %}
+<style>
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    
+    .back-link:hover {
+        text-decoration: underline;
+    }
+    
+    .trainer-profile {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+    
+    .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .profile-name {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .profile-email {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+    
+    .status-badge {
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .detail-card {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+    }
+    
+    .detail-card h3 {
+        color: #667eea;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    
+    .detail-item {
+        margin-bottom: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .detail-label {
+        font-weight: 600;
+        color: #555;
+    }
+    
+    .detail-value {
+        color: #333;
+    }
+    
+    .bio-section {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }
+    
+    .bio-section h3 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    
+    .bio-text {
+        line-height: 1.8;
+        color: #555;
+    }
+    
+    .no-bio {
+        color: #999;
+        font-style: italic;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'trainers:trainer_list' %}" class="back-link">← Back to Trainer List</a>
+
+<div class="trainer-profile">
+    <div class="profile-header">
+        <div>
+            <div class="profile-name">{{ trainer.get_full_name }}</div>
+            <div class="profile-email">{{ trainer.email }}</div>
+            {% if trainer.phone %}
+            <div class="profile-email">📞 {{ trainer.phone }}</div>
+            {% endif %}
+        </div>
+        <span class="status-badge">Active</span>
+    </div>
+</div>
+
+<div class="details-grid">
+    <div class="detail-card">
+        <h3>Professional Information</h3>
+        <div class="detail-item">
+            <span class="detail-label">Department:</span>
+            <span class="detail-value">{{ trainer.get_department_display }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Specialization:</span>
+            <span class="detail-value">{{ trainer.get_specialization_display }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Experience:</span>
+            <span class="detail-value">{{ trainer.years_of_experience }} years</span>
+        </div>
+    </div>
+    
+    <div class="detail-card">
+        <h3>Timeline</h3>
+        <div class="detail-item">
+            <span class="detail-label">Joined Date:</span>
+            <span class="detail-value">{{ trainer.joined_date|date:"F d, Y" }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Profile Created:</span>
+            <span class="detail-value">{{ trainer.created_at|date:"F d, Y" }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Last Updated:</span>
+            <span class="detail-value">{{ trainer.updated_at|date:"F d, Y" }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="bio-section">
+    <h3>Biography</h3>
+    {% if trainer.bio %}
+    <p class="bio-text">{{ trainer.bio }}</p>
+    {% else %}
+    <p class="no-bio">No biography available.</p>
+    {% endif %}
+</div>
+{% endblock %}

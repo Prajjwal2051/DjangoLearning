@@ -1,0 +1,49 @@
+🌐 NIE College Trainer Management System - URLs
+================================================
+
+✅ WORKING URLs (Open these in your browser):
+
+1. Trainer Search Page:
+   http://127.0.0.1:8000/trainers/
+   - View all trainers
+   - Search and filter functionality
+   
+2. Admin Panel (need to create superuser first):
+   http://127.0.0.1:8000/admin/
+   - Manage trainers
+   - Add/edit/delete data
+
+3. Individual Trainer Details:
+   http://127.0.0.1:8000/trainers/1/
+   http://127.0.0.1:8000/trainers/2/
+   (etc. - replace number with trainer ID)
+
+
+❌ URLS THAT DON'T WORK:
+
+- http://127.0.0.1:8000/  ← This gives 404! No page configured here
+  (This is what's causing your "Not Found" messages)
+
+
+🚀 QUICK START:
+
+1. Make sure server is running (you should see):
+   "Starting development server at http://127.0.0.1:8000/"
+
+2. Open your browser
+
+3. Visit: http://127.0.0.1:8000/trainers/
+
+4. Enjoy your beautiful trainer search page!
+
+
+📝 WHAT YOU'LL SEE:
+
+- Modern gradient header "NIE College"
+- Search form with filters
+- Grid of 10 trainer cards with:
+  * Name and email
+  * Department badge
+  * Specialization and experience
+  * "View Details" button
+

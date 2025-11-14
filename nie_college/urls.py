@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from trainers.api_views import TrainerViewSet
+
+# API Router
+router = DefaultRouter()
+router.register(r'trainers', TrainerViewSet, basename='trainer')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('trainers/', include('trainers.urls')),
+    path('api/', include(router.urls)),
+    path('trainers/', include('trainers.urls')),  # Keep existing template views
 ]
